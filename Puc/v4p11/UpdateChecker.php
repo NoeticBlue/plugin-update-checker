@@ -716,15 +716,31 @@ if (!class_exists('Puc_v4p11_UpdateChecker', false)) :
 				);
 			}
 
-			if (isset($queryArgs['license'])) {
-				$metadata->download_url = add_query_arg(
-					'license',
-					$queryArgs['license'],
-					$metadata->download_url
-				);
-			}
+			$metadata->download_url = $this->getDownloadUrl(
+				$metadata->download_url,
+				$queryArgs['license'],
+				$queryArgs['domain']
+			);
 
 			return array($metadata, $result);
+		}
+
+		/**
+		 * Get the download url using the license and domain.
+		 *
+		 * @param string $license
+		 * @param string $domain
+		 * @return string
+		 */
+		protected function getDownloadUrl($url = '', $license = '', $domain = '')
+		{
+			return add_query_arg(
+				array(
+					'license' => $license,
+					'domain' => $domain,
+				),
+				$url
+			);
 		}
 
 		/**
