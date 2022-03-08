@@ -716,6 +716,14 @@ if (!class_exists('Puc_v4p11_UpdateChecker', false)) :
 				);
 			}
 
+			if (isset($queryArgs['license'])) {
+				$metadata->download_url = add_query_arg(
+					'license',
+					$queryArgs['license'],
+					$metadata->download_url
+				);
+			}
+
 			return array($metadata, $result);
 		}
 
